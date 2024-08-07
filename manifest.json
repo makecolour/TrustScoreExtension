@@ -42,9 +42,35 @@
 			"matches": [
 				"*://www.facebook.com/groups/356018761148436/user/*"
 			],
+			"exclude_matches": [
+				"*://www.facebook.com/groups/fuhoalac"
+			],
 			"js": [
 				"./utils/jquery.js",
 				"./content/UserInGroups.js"
+			]
+		},
+		{
+			"matches": [
+				"*://www.facebook.com/*"
+			],
+			"exclude_matches": [
+				"*://www.facebook.com/groups/fuhoalac",
+				"*://www.facebook.com/groups/356018761148436/user/*",
+				"*://www.facebook.com/"
+			],
+			"js": [
+				"./utils/jquery.js",
+				"./content/UserGeneral.js"
+			]
+		},
+		{
+			"matches": [
+				"*://www.facebook.com/groups/fuhoalac"
+			],
+			"js": [
+				"./utils/jquery.js",
+				"./content/GroupsContent.js"
 			]
 		}
 	],

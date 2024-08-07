@@ -53,12 +53,12 @@ const fetchUserProfileCanonical = async (userId) => {
 async function fetchUserProfile() {
     let response = await chrome.storage.local.get('trustscore');
     Object.assign(data, response);
-    userId = extractUserId(url)
-    console.log('FUHL Trust Score loaded');
-    
+
 }
 
 window.onload = fetchUserProfile().then(async () => {
+    console.log('FUHL Trust Score loaded');
+    userId = extractUserId(url);
     if (userId) {
         let userExists = checkUserIdInResponse(userId, data);
         if (userExists) {
