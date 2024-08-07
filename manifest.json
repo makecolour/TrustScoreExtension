@@ -1,0 +1,57 @@
+{
+	"manifest_version": 3,
+	"name": "Trust Score",
+	"author": "Chillin Studio",
+	"version": "3.3",
+	"description": "FU Autokit is a Chrome extension that help FPT University students by automating various user’s interactions.",
+	
+	"default_locale": "vi",
+	
+	"homepage_url": "https://github.com/makecolour/FU-Autokit",
+	"permissions": [
+		"storage",
+		"contextMenus",
+		"declarativeContent",
+		"activeTab",
+		"tabs"
+	],
+	"web_accessible_resources": [
+		{
+			"resources": [
+				"/_locales/vi/messages.json",
+				"/_locales/en/messages.json"
+			],
+			"matches": [
+				"<all_urls>"
+			]
+		},
+		{
+			"resources": [
+				"/data/trustscore.json"
+			],
+			"matches": [
+				"<all_urls>"
+			]
+		}
+	],
+	"background": {
+			"service_worker": "./service/service_worker.js"
+		},
+	"content_scripts": [
+		{
+			"matches": [
+				"*://www.facebook.com/groups/356018761148436/user/*"
+			],
+			"js": [
+				"./utils/jquery.js",
+				"./content/UserInGroups.js"
+			]
+		}
+	],
+	"icons": {
+		"16": "./assets/LogoChill.png",
+		"32": "./assets/LogoChill.png",
+		"48": "./assets/LogoChill.png",
+		"128": "./assets/LogoChill.png"
+	}
+}
