@@ -1,0 +1,248 @@
+body {
+    width: 400px;
+}
+#clearButton{
+    margin-bottom: 50px;
+    margin-right: 5px;
+}
+
+#logo{
+    margin-top: 5px;
+    width: 60%;
+    margin-bottom: 0px;
+}
+
+.form-control{
+    margin-bottom: 5px;
+}
+
+.openai{
+    margin-top: 0px;
+    cursor: default
+}
+
+#customRange3::-webkit-slider-thumb {
+    background-color: rgb(242, 112, 27) !important;
+}
+#accordionContainer{
+    margin-top: 20px;
+}
+.title {
+    padding-left: 20px;
+    font-size: 30px;
+    font-weight: 800;
+    color: rgb(242, 113, 37);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.settingBtn .theme{
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0, 0,0 ,0);
+    color: rgb(242,112,27);
+    padding: 4px 4px;
+    margin: auto 0;
+}
+
+.settingBtn .theme:focus{
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0, 0,0 ,0);
+}
+
+.settingBtn .theme:hover {
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0, 0,0 ,0.25);
+}
+
+.settingBtn .theme:active {
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0, 0,0 ,0);
+}
+.dropdown-menu {
+    max-height: 400px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+.dropdown-item-text{
+    text-align: center;
+}
+
+.dropdown-item:active{
+    background-color: rgb(242,112,27);
+}
+
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it is on top of other elements */
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+.title .openai{
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0, 0,0 ,0);
+    color: rgb(242,112,27);
+    padding: 4px 4px;
+    margin: auto 0;
+}
+
+.title .openai:focus{
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0, 0,0 ,0);
+}
+
+.title .openai:hover {
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0, 0,0 ,0);
+}
+
+.title .openai:active {
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0, 0,0 ,0);
+}
+
+.settingBtn{
+    width: 15%;
+    height: 35%;
+}
+
+.gear {
+    max-width: 100%;
+    height: 70%;
+    width: 70%;
+}
+
+#dropdownMenuButton{
+    margin: auto;
+    margin-bottom: 10px;
+    width:60px;
+    height:60px
+}
+
+.title .above .name{
+    margin: auto;
+}
+
+.above {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.below img{
+    margin: 0 25%;
+}
+
+.settingBtn {
+    margin-right: 10px;
+}
+
+.title img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+}
+.above {
+    display: flex;
+
+}
+
+.below img{
+    text-align: center;
+    width: 150px;  
+}
+
+.settingBtn {
+    margin-right: 10px;
+}
+
+.mainBody {
+    margin: 10px 10px ;
+}
+
+.footer, .title {
+    text-align: center;
+}
+
+.footer {
+    background-color: black;
+}
+
+.footer div {
+    color: white;
+    padding: 10px;
+}
+
+.footer p {
+    margin: 0px;
+}
+
+.footer a {
+    color: rgb(240, 111, 27);
+}
+
+.input-group{
+    margin-bottom: 10px;
+}
+
+.input-group .saveBtn:focus{
+    background-color: rgb(242, 112, 27)
+}
+
+.input-group .saveBtn:hover{
+    background-color: white;
+    border-color: rgb(242, 112, 27);
+    color: rgb(242, 112, 27);
+}
+
+.input-group .saveBtn:active{
+    background-color: rgb(242, 112, 27);  
+}
+
+.input-group .saveBtn{
+    background-color: rgb(242, 112, 27);
+    border-color: white;
+}
+
+.copy{
+    width: 100%;
+}
+
+.copy:focus{
+    background-color: rgb(242, 112, 27)
+}
+
+.copy:hover{
+    background-color: white;
+    border-color: rgb(242, 112, 27);
+    color: rgb(242, 112, 27);
+}
+
+.copy:active{
+    background-color: rgb(242, 112, 27);
+}
+
+.copy{
+    background-color: rgb(242, 112, 27);
+    border-color: white;
+}
+
+.form-floating {
+    margin: 0.5em 0;
+}
+.dropdown-item{
+    cursor: pointer;
+}

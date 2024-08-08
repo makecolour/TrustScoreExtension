@@ -1,22 +1,16 @@
-const data ={};
+
 const url = window.location.href;
 var userId;
 
 const extractUserId = (url) => {
-    const match = url.match(/\/user\/(\d+)\//);
+    var match;
+     match = url.match(/\/user\/(\d+)\//);
+    if(!match){
+        match = url.match(/\/user\/(\d+)/);
+    }
     return match ? match[1] : null;
 }
 
-function checkUserIdInResponse(userId, data) {
-    if (Array.isArray(data.trustscore)) {
-        return data.trustscore.find(item => 
-            item.owner.includes(userId) || 
-            (item.properties && item.properties.owner && item.properties.owner.includes(userId)) || 
-            (item.properties && item.properties.name && item.properties.name.includes(userId))
-        );
-    }
-    return null;
-}
 
 const fetchUserProfileCanonical = async (userId) => {
     const initialUrl = `https://www.facebook.com/profile.php?id=${userId}`;
@@ -50,11 +44,7 @@ const fetchUserProfileCanonical = async (userId) => {
     }
 }
 
-async function fetchUserProfile() {
-    let response = await chrome.storage.local.get('trustscore');
-    Object.assign(data, response);
 
-}
 
 window.onload = fetchUserProfile().then(async () => {
     console.log('FUHL Trust Score loaded');

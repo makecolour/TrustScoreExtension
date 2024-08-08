@@ -1,290 +1,145 @@
 {
-    "doFeedBack": {
-        "message": "Giảng viên tích cực trong việc giảng dạy và hướng dẫn sinh viên",
-        "description": "FAP feedback"
-    },
-    "nonGPA": {
-        "message": "Các môn không tính vào GPA: ",
-        "description": "FAP GPA"
-    },
-    "addNonGPA": {
-        "message": "Thêm môn vào danh sách:",
-        "description": "FAP GPA"
-    },
-    "addToList": {
-        "message": "Thêm vào danh sách:",
-        "description": "FAP GPA"
-    },
-    "inputCode": {
-        "message": "Nhập mã môn (không cần số)",
-        "description": "FAP GPA"
-    },
-    "default": {
-        "message": "Mặc định",
-        "description": "FAP GPA"
-    },
-    "save": {
-        "message": "Lưu",
-        "description": "FAP GPA, Popup"
-    },
-    "year": {
-        "message": "Năm học",
-        "description": "FAP GPA"
-    },
-    "semester": {
-        "message": "Học kỳ",
-        "description": "FAP GPA"
-    },
-    "subjects": {
-        "message": "Môn học",
-        "description": "FAP GPA"
-    },
-    "gpa": {
-        "message": "Điểm trung bình",
-        "description": "FAP GPA"
-    },
-    "totalAvg": {
-        "message": "Điểm trung bình tổng",
-        "description": "FAP GPA"
-    },
-    "feToPass": {
-        "message": "FE cần đạt",
-        "description": "FAP FE"
-    },
-    "mark": {
-        "message": "Điểm",
-        "description": "FAP FE"
-    },
-    "avg": {
-        "message": "Điểm trung bình muốn đạt",
-        "description": "FAP FE"
-    },
-    "calculate": {
-        "message": "Tính",
-        "description": "FAP FE"
-    },
-    "review": {
-        "message": "Tốt",
-        "description": "CRS Grade"
-    },
-    "clickHere": {
-        "message": "Nhấn vào đây",
-        "description": "CMS Tool"
-    },
-    "toGetKey": {
-        "message": "để lấy key",
-        "description": "CMS Tool"
-    },
-    "copied": {
-        "message": "Sao chép key thành công, ấn X để nhập key và xem đáp án. Nhấn V để tắt popup đáp án. Nhấn B nếu muốn lấy lại key.",
-        "description": "CMS Tool"
-    },
-    "theme": {
+    "theme":
+    {
         "message": "Giao diện",
         "description": "Popup"
     },
-    "light": {
+    "light":
+    {
         "message": "Sáng",
         "description": "Popup"
     },
-    "dark": {
+    "dark":
+    {
         "message": "Tối",
         "description": "Popup"
     },
-    "system": {
+    "system":
+    {
         "message": "Hệ thống",
         "description": "Popup"
     },
-    "language": {
+    "language":
+    {
         "message": "Ngôn ngữ",
         "description": "Popup"
     },
-    "vi": {
+    "vi":
+    {
         "message": "Tiếng Việt",
         "description": "Popup"
     },
-    "en": {
+    "en":
+    {
         "message": "Tiếng Anh",
         "description": "Popup"
     },
-    "onoff": {
-        "message": "Bật/Tắt tính năng",
+    "key":
+    {
+        "message": "API Quản trị viên",
         "description": "Popup"
     },
-    "FAP": {
-        "message": "FAP",
+    "togglePasswordon":
+    {
+        "message": "Hiện",
         "description": "Popup"
     },
-    "autoLogin": {
-        "message": "Tự động đăng nhập",
+    "togglePasswordoff":
+    {
+        "message": "Ẩn",
         "description": "Popup"
     },
-    "feedback": {
-        "message": "Tự động hoàn thành đánh giá giảng viên",
+    "save":
+    {
+        "message": "Thực thi",
         "description": "Popup"
     },
-    "gpa_1": {
-        "message": "Tính điểm trung bình",
+    "saved":
+    {
+        "message": "Đang thực thi, vui lòng chờ!",
         "description": "Popup"
     },
-    "fe": {
-        "message": "Tính điểm FE cần đạt",
+    "question":
+    {
+        "message": "Hãy hỏi tôi điều gì đó",
         "description": "Popup"
     },
-    "noti": {
-        "message": "Tắt trang thông báo (không khuyến khích)",
+    "clearButton":
+    {
+        "message": "Xóa",
         "description": "Popup"
     },
-    "EDN": {
-        "message": "EduNext",
+    "ask":
+    {
+        "message": "Cập nhật",
         "description": "Popup"
     },
-    "gradeongroupmates": {
-        "message": "Tự động Grade on Groupmates",
+    "temperature":
+    {
+        "message": "Mức độ chặt chẽ: ",
         "description": "Popup"
     },
-    "CMS": {
-        "message": "CMS",
+    "floatingTextarea":
+    {
+        "message": "Phản hồi mới nhất",
         "description": "Popup"
     },
-    "CRS": {
-        "message": "Coursera",
+    "copy":
+    {
+        "message": "Sao chép",
         "description": "Popup"
     },
-    "getshareablelink": {
-        "message": "Lấy link chấm điểm",
-        "description": "Popup"
-    },
-    "autoreview": {
-        "message": "Tự động chấm điểm",
-        "description": "Popup"
-    },
-    "FLM": {
-        "message": "FLM",
-        "description": "Popup"
-    },
-    "autochangelang": {
-        "message": "Tự động chuyển ngôn ngữ",
-        "description": "Popup"
-    },
-    "suggestion": {
-        "message": "Thêm gợi ý điền tên môn/ngành học",
-        "description": "Popup"
-    },
-    "DNG": {
-        "message": "DNG",
-        "description": "Popup"
-    },
-    "autofillroll": {
-        "message": "Tự động điền mã sinh viên",
-        "description": "Popup"
-    },
-    "OCD": {
-        "message": "OCD",
-        "description": "Popup"
-    },
-    "OJT": {
-        "message": "OJT",
-        "description": "Popup"
-    },
-    "LBR": {
-        "message": "Thư viện",
-        "description": "Popup"
-    },
-    "autofillall": {
-        "message": "Tự động điền tài khoản-mật khẩu",
-        "description": "Popup"
-    },
-    "more": {
-        "message": "Thêm",
-        "description": "Popup"
-    },
-    "k18": {
-        "message": "K18 trở xuống",
-        "description": "Popup"
-    },
-    "gen": {
-        "message": "Chọn niên khóa",
-        "description": "Popup"
-    },
-    "k19": {
-        "message": "K19 trở lên",
-        "description": "Popup"
-    },
-    "select": {
-        "message": "Chọn cơ sở",
-        "description": "Popup"
-    },
-    "campus0": {
-        "message": "Select Campus",
-        "description": "Popup"
-    },
-    "campus3": {
-        "message": "FU-Hòa Lạc",
-        "description": "Popup"
-    },
-    "campus4": {
-        "message": "FU-Hồ Chí Minh",
-        "description": "Popup"
-    },
-    "campus5": {
-        "message": "FU-Đà Nẵng",
-        "description": "Popup"
-    },
-    "campus6": {
-        "message": "FU-Cần Thơ",
-        "description": "Popup"
-    },
-    "campus7": {
-        "message": "FU-Quy Nhơn",
-        "description": "Popup"
-    },
-    "rollnum": {
-        "message": "Mã số sinh viên",
-        "description": "Popup"
-    },
-    "email": {
-        "message": "Địa chỉ mail",
-        "description": "Popup"
-    },
-    "password": {
-        "message": "Mật khẩu <a href=\"https://library.fpt.edu.vn/\" target=\"_blank\" title=\"Thư viện\">Library</a>",
-        "description": "Popup"
-    },
-    "show": {
-        "message": "Hiện mật khẩu",
-        "description": "Popup"
-    },
-    "roll_placeholder": {
-        "message": "Rollnumber",
-        "description": "Popup"
-    },
-    "email_placeholder": {
-        "message": "Email",
-        "description": "Popup"
-    },
-    "password_placeholder": {
-        "message": "Password",
+    "loading":
+    {
+        "message": "Vui lòng chờ API lấy câu trả lời...",
         "description": "Popup"
     },
     "madeby": {
         "message": "🧟 Phát triển bởi zombie của <a href=\"https://www.facebook.com/PresentedbyChillinStudio\" target=\"_blank\">Chillin Studio</a> 🧟",
-        "description": "Popup, Getlink"
+        "description": "Popup"
     },
     "version": {
-        "message": "😎 Phiên bản <a href=\"https://github.com/makecolour/FU-Autokit\" target=\"_blank\">{{version}}</a> 😎",
-        "description": "Popup, Getlink"
+        "message": "😎 Phiên bản <a href=\"https://github.com/makecolour/GPT_Next\" target=\"_blank\">{{version}}</a> 😎",
+        "description": "Popup"
     },
-    "coursera_link": {
-        "message": "Link Coursera",
-        "description": "Getlink"
+    "solveThis": {
+        "message": "Giải quyết điều này",
+        "description": "Edunext"
     },
-    "get_coursera_link": {
-        "message": "Link chấm điểm Coursera",
-        "description": "Getlink"
+    "success": {
+        "message": "Cập nhật thành công!",
+        "description": "Popup"
     },
-    "copy": {
-        "message": "Sao chép",
-        "description": "Getlink"
+    "error": {
+        "message": "Lỗi: ",
+        "description": "Edunext"
+    },
+    "errorPopup": {
+        "message": "Lỗi, mở console để biết thêm thông tin!",
+        "description": "Edunext"
+    },
+    "update": {
+        "message": "Bạn có muốn cập nhật dữ liệu không?",
+        "description": "Popup"
+    },
+    "home_tab": {
+        "message": "Dịch vụ",
+        "description": "Popup"
+    },
+    "profile_tab": {
+        "message": "Dữ liệu",
+        "description": "Popup"
+    },
+    "owner": {
+        "message": "Tìm kiếm dịch vụ",
+        "description": "Popup"
+    },
+    "check": {
+        "message": "Tìm kiếm",
+        "description": "Popup"
+    },
+    "execute": {
+        "message": "Chức năng quản trị viên, đừng sử dụng nếu bạn không biết bạn đang làm gì!",
+        "description": "Popup"
     }
 }

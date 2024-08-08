@@ -1,17 +1,16 @@
-const data ={};
+
 const url = window.location.href;
 var userId;
 
 const extractUserId = (url) => {
-    const match = url.match(/https:\/\/www\.facebook\.com\/([^\/]+)/);
+    var match;
+    match = url.match(/https:\/\/www\.facebook\.com\/([^\/]+)/);
+    if(!match){
+        match = url.match(/https:\/\/www\.facebook\.com\/([^\/]+)\//);
+    }
     return match ? match[1] : null;
 }
 
-async function fetchUserProfile() {
-    let response = await chrome.storage.local.get('trustscore');
-    Object.assign(data, response);
-    
-}
 
 function getUserID() {
     const htmlContent = document.documentElement.innerHTML;
@@ -26,16 +25,7 @@ function getUserID() {
     }
 }
 
-function checkUserIdInResponse(userId, data) {
-    if (Array.isArray(data.trustscore)) {
-        return data.trustscore.find(item => 
-            item.owner.includes(userId) || 
-            (item.properties && item.properties.owner && item.properties.owner.includes(userId)) || 
-            (item.properties && item.properties.name && item.properties.name.includes(userId))
-        );
-    }
-    return null;
-}
+
 
 window.onload = fetchUserProfile().then(() => {
     userId = extractUserId(url)

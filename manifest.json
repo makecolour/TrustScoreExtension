@@ -2,18 +2,22 @@
 	"manifest_version": 3,
 	"name": "Trust Score",
 	"author": "Chillin Studio",
-	"version": "3.3",
+	"version": "1.0",
 	"description": "FU Autokit is a Chrome extension that help FPT University students by automating various user’s interactions.",
-	
+	"action": {
+		"default_popup": "./popup/popup.html"
+	},
 	"default_locale": "vi",
-	
-	"homepage_url": "https://github.com/makecolour/FU-Autokit",
+	"options_page": "./popup/popup.html",
+	"homepage_url": "https://app-1fd3ee37-b34c-482a-ba11-dbb1f80e9497.cleverapps.io",
 	"permissions": [
 		"storage",
 		"contextMenus",
 		"declarativeContent",
 		"activeTab",
-		"tabs"
+		"tabs",
+		"background",
+		"*://app-1fd3ee37-b34c-482a-ba11-dbb1f80e9497.cleverapps.io/*"
 	],
 	"web_accessible_resources": [
 		{
@@ -36,17 +40,16 @@
 	],
 	"background": {
 			"service_worker": "./service/service_worker.js"
+
 		},
 	"content_scripts": [
 		{
 			"matches": [
-				"*://www.facebook.com/groups/356018761148436/user/*"
-			],
-			"exclude_matches": [
-				"*://www.facebook.com/groups/fuhoalac"
+				"*://www.facebook.com/groups/356018761148436/user/*",
+				"*://www.facebook.com/groups/fuhoalac/user/*"
 			],
 			"js": [
-				"./utils/jquery.js",
+				"./content/Functions.js",
 				"./content/UserInGroups.js"
 			]
 		},
@@ -55,29 +58,46 @@
 				"*://www.facebook.com/*"
 			],
 			"exclude_matches": [
-				"*://www.facebook.com/groups/fuhoalac",
-				"*://www.facebook.com/groups/356018761148436/user/*",
+				"*://www.facebook.com/groups/fuhoalac*",
+				"*://www.facebook.com/groups/356018761148436*",
 				"*://www.facebook.com/"
 			],
 			"js": [
-				"./utils/jquery.js",
+				"./content/Functions.js",
 				"./content/UserGeneral.js"
 			]
 		},
 		{
 			"matches": [
-				"*://www.facebook.com/groups/fuhoalac"
+				"*://www.facebook.com/groups/fuhoalac",
+				"*://www.facebook.com/groups/356018761148436"
+			],
+			"exclude_matches": [
+				"*://www.facebook.com/groups/356018761148436/user/*",
+				"*://www.facebook.com/groups/fuhoalac/user/*",
+				"*://www.facebook.com/groups/fuhoalac/posts/*",
+				"*://www.facebook.com/groups/356018761148436/posts/*"
 			],
 			"js": [
-				"./utils/jquery.js",
-				"./content/GroupsContent.js"
+				"./content/Functions.js",
+				"./content/GroupGeneral.js"
+			]
+		},
+		{
+			"matches": [
+				"*://www.facebook.com/groups/fuhoalac/posts/*",
+				"*://www.facebook.com/groups/356018761148436/posts/*"
+			],
+			"js": [
+				"./content/Functions.js",
+				"./content/GroupContent.js"
 			]
 		}
 	],
 	"icons": {
-		"16": "./assets/LogoChill.png",
-		"32": "./assets/LogoChill.png",
-		"48": "./assets/LogoChill.png",
-		"128": "./assets/LogoChill.png"
+		"16": "./assets/favicon.png",
+		"32": "./assets/favicon.png",
+		"48": "./assets/favicon.png",
+		"128": "./assets/favicon.png"
 	}
 }
