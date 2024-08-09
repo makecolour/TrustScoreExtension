@@ -112,7 +112,8 @@
     },
     "error": {
         "message": "Lỗi: ",
-        "description": "Edunext"
+        "description": "Edunext",
+        "sameData": "Dữ liệu mới nhất!"
     },
     "errorPopup": {
         "message": "Lỗi, mở console để biết thêm thông tin!",

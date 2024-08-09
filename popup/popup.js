@@ -26,12 +26,16 @@ check.addEventListener("click", async () => {
     if (popover) {
       popover = null;
     }
-    fetchUserProfile().then(() => {
     const query = owner.value;
     let userExists = checkUserIdInResponse(query, data);
-    console.log(userExists);
-    accordionContainer.innerHTML = generateAccordionHTML(userExists);
-    });
+      
+    if (userExists) {
+        console.log('Canonical ID exists in response:', userExists);
+        accordionContainer.innerHTML = generateAccordionHTML(userExists);
+    } else {
+        console.log('Canonical ID not found in response');
+    }
+
   }
   else{ 
     if (!popover&&owner.value == "") {
@@ -41,34 +45,46 @@ check.addEventListener("click", async () => {
   }
 });
 
+
 function generateAccordionHTML(objects) {
   let accordionHTML = '<div class="accordion" id="accordionExample">';
   objects.forEach((obj, index) => {
-      accordionHTML += `
-          <div class="accordion-item">
-              <h2 class="accordion-header" id="heading${index}">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
-                      ${obj.owner}
-                  </button>
-              </h2>
-              <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                      <pre>${JSON.stringify(obj, null, 2)}</pre>
-                      <a href="${chrome.runtime.getManifest().homepage_url}/profile?owner=${obj.owner}" target="_blank">View Profile</a>
-                  </div>
-              </div>
+    accordionHTML += `
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading${index}">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
+            ${obj.owner}
+          </button>
+        </h2>
+        <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>${JSON.stringify(obj, null, 2)}</p>
+            <a href="${chrome.runtime.getManifest().homepage_url}/profile?owner=${obj.owner}" target="_blank">View Profile</a>
           </div>
-      `;
+        </div>
+      </div>
+    `;
   });
   accordionHTML += '</div>';
   return accordionHTML;
 }
 
 
+
 document.addEventListener("click", (event) => {
   if (popover && !check.contains(event.target)) {
     popover.dispose();
     popover = null;
+  }
+  if (event.target.matches('.accordion-button')) {
+    event.target.setAttribute('aria-expanded', event.target.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
+    console.log('Accordion button clicked:', event.target);
+  }
+
+  // Handle clicks on dynamically created profile links
+  if (event.target.matches('.accordion-body a')) {
+    // Your logic for handling profile link clicks
+    console.log('Profile link clicked:', event.target);
   }
 });
 
@@ -117,12 +133,12 @@ save.addEventListener("click", async () => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
+  await fetchUserProfile()
   const api = await getFromStorage('API_KEY', '');
 
   const theme = await getFromStorage('THEME', '');
 
   const lang = await getFromStorage('LANG', '');
-
 
   key.value = api;
   if (key.value == "undefined") {
@@ -145,17 +161,29 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 })
 
+
 ask.addEventListener("click", async () => {
   const ans = confirm(label.ask.message+"?");
   if(ans)
   {
     spin.style.display = "flex";
-    const data = await fetchNewData();
-    console.log(data);
-    if(Array.isArray(data))
+    const newData = await fetchNewData();
+    if(Array.isArray(newData)&&newData.length != 0&&newData != null && newData != undefined)
     {
-      await chrome.storage.local.set({ 'trustscore': data });
-      alert(label.success.message);
+      console.log(newData);
+      console.log(data.trustscore);
+      if(compareJsonArrays(newData,data.trustscore))
+      {
+        alert(label.error.sameData);
+      }
+      else{
+        const ans = confirm(label.ask.message+"?");
+        if(ans)
+        {
+          await chrome.storage.local.set({ 'trustscore': newData });
+          alert(label.success.message);
+        }
+      }
     }
     else{
       alert(label.error.message);

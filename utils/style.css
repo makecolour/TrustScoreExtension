@@ -8,7 +8,7 @@ body {
 
 #logo{
     margin-top: 5px;
-    width: 60%;
+    width: 40%;
     margin-bottom: 0px;
 }
 
@@ -63,7 +63,7 @@ body {
     border-color: rgba(0, 0,0 ,0);
 }
 .dropdown-menu {
-    max-height: 400px; /* Adjust the height as needed */
+    
     overflow-y: auto;
 }
 .dropdown-item-text{
@@ -116,7 +116,7 @@ body {
 
 .settingBtn{
     width: 15%;
-    height: 35%;
+    height: 25%;
 }
 
 .gear {

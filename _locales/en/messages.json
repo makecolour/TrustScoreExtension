@@ -112,7 +112,8 @@
     },
     "error": {
         "message": "Error: ",
-        "description": "Edunext, Popup"
+        "description": "Edunext, Popup",
+        "sameData": "Newest data!"
     },
     "errorPopup": {
         "message": "Error, open console for more information!",
