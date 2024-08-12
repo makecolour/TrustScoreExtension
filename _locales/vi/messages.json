@@ -95,11 +95,11 @@
         "description": "Popup"
     },
     "madeby": {
-        "message": "🧟 Phát triển bởi zombie của <a href=\"https://www.facebook.com/PresentedbyChillinStudio\" target=\"_blank\">Chillin Studio</a> 🧟",
+        "message": "🌟 Dự án tham gia <a href=\"https://www.facebook.com/fptedu.resfes\" target=\"_blank\">FPTEdu Resfes</a> 🌟",
         "description": "Popup"
     },
     "version": {
-        "message": "😎 Phiên bản <a href=\"https://github.com/makecolour/GPT_Next\" target=\"_blank\">{{version}}</a> 😎",
+        "message": "😎 Phiên bản <a href=\"{{resfes}}\" target=\"_blank\">{{version}}</a> 😎",
         "description": "Popup"
     },
     "solveThis": {

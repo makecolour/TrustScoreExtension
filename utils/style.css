@@ -1,5 +1,6 @@
 body {
     width: 400px;
+    border-radius: 5px;
 }
 #clearButton{
     margin-bottom: 50px;

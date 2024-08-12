@@ -1,21 +1,18 @@
 {
 	"manifest_version": 3,
-	"name": "Trust Score",
+	"name": "Trust Management",
 	"author": "Chillin Studio",
 	"version": "1.0",
-	"description": "FU Autokit is a Chrome extension that help FPT University students by automating various user’s interactions.",
+	"description": "Trust Management is a part of the Trust Management project, which is a project from the FPTEdu Resfes. Trust Management is a tool that helps users to manage trust score of service providers and customers in FUHL group.",
 	"action": {
 		"default_popup": "./popup/popup.html"
 	},
 	"default_locale": "vi",
 	"options_page": "./popup/popup.html",
 	"homepage_url": "https://app-1fd3ee37-b34c-482a-ba11-dbb1f80e9497.cleverapps.io",
+	"author": "quyennthe180534@fpt.edu.vn",
 	"permissions": [
 		"storage",
-		"contextMenus",
-		"declarativeContent",
-		"activeTab",
-		"tabs",
 		"background",
 		"*://app-1fd3ee37-b34c-482a-ba11-dbb1f80e9497.cleverapps.io/*"
 	],

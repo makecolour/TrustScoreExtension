@@ -306,41 +306,21 @@ async function extractUserIdFromPost(possiblyHeader) {
     // console.log('Failed to extract user ID after multiple attempts.');
     return [];
 }
-function createFloatingButton() {
-    const button = document.createElement('button');
-    button.innerText = 'Click Me';
-    button.style.position = 'fixed';
-    button.style.bottom = '20px';
-    button.style.right = '20px';
-    button.style.padding = '10px 20px';
-    button.style.backgroundColor = '#007bff';
-    button.style.color = '#fff';
-    button.style.border = 'none';
-    button.style.borderRadius = '5px';
-    button.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)';
-    button.style.cursor = 'pointer';
-    button.style.zIndex = '1000';
 
-    button.addEventListener('click', async () => {
-        await findPosts();
-    });
+// async function handleNewPosts() {
+//     const postHeader = await fetchWithRetries(() => Promise.resolve(extractPosts()));
 
-    document.body.appendChild(button);
-}
-async function handleNewPosts() {
-    const postHeader = await fetchWithRetries(() => Promise.resolve(extractPosts()));
-
-    for (let i = 0; i < postHeader.length; i++) {
-        try {
-            const user = await extractUserIdFromPost(postHeader[i]);
-            const owner = user[0][0];
-            if (!allPosts.includes(postHeader[i])) {
-                allPosts.push(postHeader[i]);
-                appendDivToPostHead(postHeader[i], owner);
-            }
-        } catch (error) {
-            // console.error('Error after initialization:', error);
-        }
-    }
-}
+//     for (let i = 0; i < postHeader.length; i++) {
+//         try {
+//             const user = await extractUserIdFromPost(postHeader[i]);
+//             const owner = user[0][0];
+//             if (!allPosts.includes(postHeader[i])) {
+//                 allPosts.push(postHeader[i]);
+//                 appendDivToPostHead(postHeader[i], owner);
+//             }
+//         } catch (error) {
+//             // console.error('Error after initialization:', error);
+//         }
+//     }
+// }
 

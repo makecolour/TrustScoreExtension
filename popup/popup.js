@@ -309,5 +309,5 @@ function changeLanguage(label){
   owner.placeholder = label.owner.message;
   check.textContent = label.check.message;
   document.getElementById("madeby").innerHTML = label.madeby.message;
-	document.getElementById("version").innerHTML = label.version.message.replace("{{version}}", chrome.runtime.getManifest().version);
+	document.getElementById("version").innerHTML = label.version.message.replace("{{version}}", chrome.runtime.getManifest().version).replace("{{resfes}}", chrome.runtime.getManifest().homepage_url);
 } 
