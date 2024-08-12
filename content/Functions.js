@@ -39,19 +39,69 @@ async function fetchUserProfile() {
     console.log('FUHL Trust Score loaded');
 }
 
+const processNameAttribute = (data) => {
+    return data.map(item => {
+        if (typeof item.properties.name === 'string') {
+            return item.properties.name;
+        } else if (Array.isArray(item.properties.name)) {
+            return item.properties.name.join(', ');
+        } else {
+            return null;
+        }
+    });
+};
+
+
 function appendDivToPostHead(postHead, d) {
     var newDiv = document.createElement("div");
     newDiv.classList.add("FUHL-trust-score");
-    if (d.group == "service_provider") {
-        newDiv.innerHTML = `<strong>Service Provider: ${d.properties.service_type}</strong></br>Name: ${d.owner}</br>Ranking: ${d.order} - ${starCount(d)}</br><a href="${chrome.runtime.getManifest().homepage_url}/profile?owner=${d.owner}" target=_blank>View Details</a>`;
-    }
-    else{
-        newDiv.innerHTML = `<strong>User</strong></br>FacebookID: ${d.properties.name}</br>`;
-    }
-    newDiv.style.backgroundColor = "#f0f0f0";
+
+    newDiv.style.background = "linear-gradient(315deg, rgba(0, 191, 255, 0.8), rgba(255, 127, 63, 0.8))";
     newDiv.style.padding = "10px";
     newDiv.style.marginBottom = "10px";
-    newDiv.style.border = "1px solid #ccc";
+    newDiv.style.border = "1px solid #F0F0F0";
+    newDiv.style.position = "relative"; 
+    newDiv.style.color = "#fff";
+    newDiv.style.borderRadius = "5px";
+    newDiv.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.2)";
+    newDiv.style.cursor = "pointer";
+    
+    if (d.group == "service_provider") {
+        newDiv.innerHTML = `<strong>Service Provider: ${d.properties.service_type}</strong></br>Name: ${d.owner}</br>Ranking: ${d.order} - ${starCount(d)}`;
+        newDiv.addEventListener('click', () => {
+            window.open(`${chrome.runtime.getManifest().homepage_url}/profile?owner=${d.owner}`, '_blank');
+        });
+    } else {
+        newDiv.innerHTML = `<strong>User: <u>${d.properties.name}</u></strong>`;
+    }
+    
+    const hoverDiv = document.createElement('div');
+    hoverDiv.innerHTML = `<strong>Trust Score: <u>${d.first_combine}</u></strong><br><strong>Feedbacks:</strong><br>Good: ${d.total_good}<br>Bad: ${d.total_bad}<br>Ask for service: ${d.total_ask_for_service}<br>Non related: ${d.total_non_related}<br><strong>Total posts: ${d.properties.total_posts}</strong><br><strong>Reactions:</strong><br>Like: ${d.properties.num_likes}<br>Love: ${d.properties.num_loves}<br>Wow: ${d.properties.num_wows}<br>Haha: ${d.properties.num_hahas}<br>Sad: ${d.properties.num_sads}<br>Angry: ${d.properties.num_angries}<br><strong>Comments:</strong><br>Comments received: ${d.properties.comment_receive}<br>Total comments: ${d.properties.total_comments}<br>Self comments: ${d.properties.self_comment}<br>Total reacts received from comments: ${d.properties.total_comment_reacts}`;
+    hoverDiv.style.position = 'absolute';
+    hoverDiv.style.top = '100%';
+    hoverDiv.style.left = '0';
+    hoverDiv.style.padding = '10px';
+    hoverDiv.style.backgroundColor = '#fff';
+    hoverDiv.style.border = '1px solid #ccc';
+    hoverDiv.style.display = 'none';
+    hoverDiv.style.color = 'black';
+    hoverDiv.style.zIndex = '999999';
+    
+    newDiv.addEventListener('mouseenter', () => {
+        hoverDiv.style.display = 'block';
+    });
+    
+    newDiv.addEventListener('mouseleave', () => {
+        hoverDiv.style.display = 'none';
+    });
+    
+    newDiv.appendChild(hoverDiv);
+    
+    if (postHead && postHead.parentNode) {
+        postHead.parentNode.insertBefore(newDiv, postHead);
+        console.log("New div added before post head!");
+        console.log(newDiv);
+    }
 
     if (postHead && postHead.parentNode ) {
         postHead.parentNode.insertBefore(newDiv, postHead);
@@ -64,9 +114,9 @@ function appendDivToPostHead(postHead, d) {
 
 const extractUserIdFromProfile = (url) => {
     var match;
-    match = url.match(/\/profile\.php\?id=(\d+)/);
-    if(!match){
-        match = url.match(/\/profile\.php\?id=(\d+)/);
+    match = url.match(/\/profile\.php\?id=(\d+)/); // Match profile.php?id=12345
+    if (!match) {
+        match = url.match(/\/([a-zA-Z0-9.]+)\/?$/); // Match username like sun.sunn121512
     }
     return match ? match[1] : null;
 };
@@ -191,7 +241,7 @@ function starCount(obj) {
 }
 
 function extractPosts() {
-    var possiblyHeader = document.getElementsByClassName('html-h2 x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x1vvkbs x1heor9g x1qlqyl8 x1pd3egz x1a2a7pz x1gslohp x1yc453h');
+    var possiblyHeader = document.getElementsByClassName('x11i5rnm xat24cr x1mh8g0r xexx8yu x4uap5 x18d9i69 xkhd6sd x1vvkbs x1heor9g x1qlqyl8 x1pd3egz x1a2a7pz x1gslohp x1yc453h');
     return possiblyHeader;
 }
 
@@ -205,7 +255,7 @@ function extractUserProfile() {
     return possiblyHeader;
 }
 
-async function fetchWithRetries(fetchFunction, retries = 5, delay = 1000) {
+async function fetchWithRetries(fetchFunction, retries = 10, delay = 1000) {
     for (let attempt = 0; attempt < retries; attempt++) {
         try {
             return await fetchFunction();

@@ -3,7 +3,11 @@ let user
 window.addEventListener('load', async () => {
     try {
         await fetchWithRetries(fetchUserProfile);
-        const postHeader = await fetchWithRetries(() => Promise.resolve(extractPosts()[0]));
+        
+        while (!postHeader) {
+            await fetchWithRetries(fetchUserProfile);
+            postHeader = await fetchWithRetries(() => Promise.resolve(extractPosts()[0]));
+        }
         const user = await extractUserIdFromPost(postHeader);
         console.log(postHeader);
         const owner = user[0][0];
