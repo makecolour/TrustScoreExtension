@@ -26,8 +26,8 @@ window.addEventListener('load', async () => {
                     console.log('Canonical ID not found in profile page');
                 }
             }
-            const postHeader = await fetchWithRetries(() => Promise.resolve(extractUserProfile()[0]));
-            appendDivToPostHead(postHeader, userExists[0]);
+            const postHeader = await fetchWithRetries(() => Promise.resolve(extractUserProfile()));
+            appendDivToPostHead(postHeader[0], userExists[0]);
         } else {
             console.log('User ID not found in URL');
         }

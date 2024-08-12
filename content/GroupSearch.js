@@ -25,16 +25,10 @@ function createFloatingButton() {
     document.body.appendChild(button);
 }
 
-// Call the function to create the floating button when the window loads
-window.addEventListener('load', async () => {
-    
-    await fetchWithRetries(fetchUserProfile);
-    createFloatingButton();
-});
 
-async function findPosts() {
+async function handleNewPosts() {
 
-    const postHeader = extractPostSearch();
+    const postHeader = await fetchWithRetries(() => Promise.resolve(extractPostSearch()));
 
     for (let i = 0; i < postHeader.length; i++) {
         try {
@@ -43,12 +37,35 @@ async function findPosts() {
             console.log(user);
             const owner = user[0][0];
             console.log(owner);
-            appendDivToPostHead(postHeader[i], owner);
+            if(!allPosts.includes(postHeader[i])) {
+                allPosts.push(postHeader[i]);
+                appendDivToPostHead(postHeader[i], owner);
+            }
         } catch (error) {
             console.error('Error after initialization:', error);
-            
         }
-        
     }
-
 }
+
+// Set up the MutationObserver
+function observeDOMChanges() {
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.addedNodes.length) {
+                handleNewPosts();
+            }
+        });
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+    });
+}
+
+// Call the function to create the floating button and set up the observer when the window loads
+window.addEventListener('load', async () => {
+    await fetchWithRetries(fetchUserProfile);
+    createFloatingButton();
+    observeDOMChanges();
+});

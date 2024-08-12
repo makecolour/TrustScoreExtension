@@ -44,65 +44,75 @@
 		},
 	"content_scripts": [
 		{
-			"matches": [
-				"*://www.facebook.com/groups/356018761148436/user/*",
-				"*://www.facebook.com/groups/fuhoalac/user/*"
-			],
-			"js": [
-				"./content/Functions.js",
-				"./content/UserInGroups.js"
-			]
-		},
-		{
-			"matches": [
+			"matches":[
 				"*://www.facebook.com/*"
 			],
-			"exclude_matches": [
-				"*://www.facebook.com/groups/fuhoalac*",
-				"*://www.facebook.com/groups/356018761148436*",
-				"*://www.facebook.com/"
-			],
 			"js": [
 				"./content/Functions.js",
-				"./content/UserGeneral.js"
-			]
-		},
-		{
-			"matches": [
-				"*://www.facebook.com/groups/fuhoalac",
-				"*://www.facebook.com/groups/356018761148436"
-			],
-			"exclude_matches": [
-				"*://www.facebook.com/groups/356018761148436/user/*",
-				"*://www.facebook.com/groups/fuhoalac/user/*",
-				"*://www.facebook.com/groups/fuhoalac/posts/*",
-				"*://www.facebook.com/groups/356018761148436/posts/*"
-			],
-			"js": [
-				"./content/Functions.js",
-				"./content/GroupGeneral.js"
-			]
-		},
-		{
-			"matches": [
-				"*://www.facebook.com/groups/fuhoalac/posts/*",
-				"*://www.facebook.com/groups/356018761148436/posts/*"
-			],
-			"js": [
-				"./content/Functions.js",
-				"./content/GroupContent.js"
-			]
-		},
-		{
-			"matches": [
-				"*://www.facebook.com/groups/356018761148436/search/*",
-				"*://www.facebook.com/groups/fuhoalac/search/*"
-			],
-			"js": [
-				"./content/Functions.js",
-				"./content/GroupSearch.js"
+				"./content/FUHL.js"
 			]
 		}
+		// ,
+		// {
+		// 	"matches": [
+		// 		"*://www.facebook.com/groups/356018761148436/user/*",
+		// 		"*://www.facebook.com/groups/fuhoalac/user/*"
+		// 	],
+		// 	"js": [
+		// 		"./content/Functions.js",
+		// 		"./content/UserInGroups.js"
+		// 	]
+		// },
+		// {
+		// 	"matches": [
+		// 		"*://www.facebook.com/*"
+		// 	],
+		// 	"exclude_matches": [
+		// 		"*://www.facebook.com/groups/fuhoalac*",
+		// 		"*://www.facebook.com/groups/356018761148436*",
+		// 		"*://www.facebook.com/"
+		// 	],
+		// 	"js": [
+		// 		"./content/Functions.js",
+		// 		"./content/UserGeneral.js"
+		// 	]
+		// },
+		// {
+		// 	"matches": [
+		// 		"*://www.facebook.com/groups/fuhoalac",
+		// 		"*://www.facebook.com/groups/356018761148436"
+		// 	],
+		// 	"exclude_matches": [
+		// 		"*://www.facebook.com/groups/356018761148436/user/*",
+		// 		"*://www.facebook.com/groups/fuhoalac/user/*",
+		// 		"*://www.facebook.com/groups/fuhoalac/posts/*",
+		// 		"*://www.facebook.com/groups/356018761148436/posts/*"
+		// 	],
+		// 	"js": [
+		// 		"./content/Functions.js",
+		// 		"./content/GroupGeneral.js"
+		// 	]
+		// },
+		// {
+		// 	"matches": [
+		// 		"*://www.facebook.com/groups/fuhoalac/posts/*",
+		// 		"*://www.facebook.com/groups/356018761148436/posts/*"
+		// 	],
+		// 	"js": [
+		// 		"./content/Functions.js",
+		// 		"./content/GroupContent.js"
+		// 	]
+		// },
+		// {
+		// 	"matches": [
+		// 		"*://www.facebook.com/groups/356018761148436/search/*",
+		// 		"*://www.facebook.com/groups/fuhoalac/search/*"
+		// 	],
+		// 	"js": [
+		// 		"./content/Functions.js",
+		// 		"./content/GroupSearch.js"
+		// 	]
+		// }
 	],
 	"icons": {
 		"16": "./assets/favicon.png",

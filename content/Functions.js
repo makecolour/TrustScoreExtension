@@ -36,7 +36,7 @@ function checkServiceProviderIdInResponse(userId, data) {
 async function fetchUserProfile() {
     let response = await chrome.storage.local.get('trustscore');
     Object.assign(data, response);
-    console.log('FUHL Trust Score loaded');
+    // console.log('FUHL Trust Score loaded');
 }
 
 const processNameAttribute = (data) => {
@@ -76,7 +76,7 @@ function appendDivToPostHead(postHead, d) {
     }
     
     const hoverDiv = document.createElement('div');
-    hoverDiv.innerHTML = `<strong>Trust Score: <u>${d.first_combine}</u></strong><br><strong>Feedbacks:</strong><br>Good: ${d.total_good}<br>Bad: ${d.total_bad}<br>Ask for service: ${d.total_ask_for_service}<br>Non related: ${d.total_non_related}<br><strong>Total posts: ${d.properties.total_posts}</strong><br><strong>Reactions:</strong><br>Like: ${d.properties.num_likes}<br>Love: ${d.properties.num_loves}<br>Wow: ${d.properties.num_wows}<br>Haha: ${d.properties.num_hahas}<br>Sad: ${d.properties.num_sads}<br>Angry: ${d.properties.num_angries}<br><strong>Comments:</strong><br>Comments received: ${d.properties.comment_receive}<br>Total comments: ${d.properties.total_comments}<br>Self comments: ${d.properties.self_comment}<br>Total reacts received from comments: ${d.properties.total_comment_reacts}`;
+    hoverDiv.innerHTML = `<strong>Trust Score: <u>${d.first_combine}</u></strong><br><strong>Feedbacks:</strong><br>Good: ${d.total_good}<br>Bad: ${d.total_bad}<br>Ask for service: ${d.total_ask_for_service}<br>Non related: ${d.total_non_related}<br><strong>Total posts: ${d.properties.total_posts}</strong><br><strong>Reactions:</strong><br>Like: ${d.properties.num_likes}<br>Love: ${d.properties.num_loves}<br>Care: ${d.properties.num_cares}<br>Wow: ${d.properties.num_wows}<br>Haha: ${d.properties.num_hahas}<br>Sad: ${d.properties.num_sads}<br>Angry: ${d.properties.num_angries}<br><strong>Comments:</strong><br>Comments received: ${d.properties.comment_receive}<br>Total comments: ${d.properties.total_comments}<br>Self comments: ${d.properties.self_comment}<br>Total reacts received from comments: ${d.properties.total_comment_reacts}`;
     hoverDiv.style.position = 'absolute';
     hoverDiv.style.top = '100%';
     hoverDiv.style.left = '0';
@@ -85,7 +85,7 @@ function appendDivToPostHead(postHead, d) {
     hoverDiv.style.border = '1px solid #ccc';
     hoverDiv.style.display = 'none';
     hoverDiv.style.color = 'black';
-    hoverDiv.style.zIndex = '999999';
+    hoverDiv.style.zIndex = '9999';
     
     newDiv.addEventListener('mouseenter', () => {
         hoverDiv.style.display = 'block';
@@ -99,16 +99,16 @@ function appendDivToPostHead(postHead, d) {
     
     if (postHead && postHead.parentNode) {
         postHead.parentNode.insertBefore(newDiv, postHead);
-        console.log("New div added before post head!");
-        console.log(newDiv);
+        // console.log("New div added before post head!");
+        // console.log(newDiv);
     }
 
     if (postHead && postHead.parentNode ) {
         postHead.parentNode.insertBefore(newDiv, postHead);
-        console.log("New div added before post head!");
-        console.log(newDiv);
+        // console.log("New div added before post head!");
+        // console.log(newDiv);
     } else {
-        console.log("postHead or its parent node is not available.");
+        // console.log("postHead or its parent node is not available.");
     }
 }
 
@@ -137,9 +137,9 @@ function getUserID() {
 
     if (match && match[1]) {
         const extractedUserId = match[1];
-        console.log(`User ID found: ${extractedUserId}`);
+        // console.log(`User ID found: ${extractedUserId}`);
     } else {
-        console.log('User ID not found in the page HTML.');
+        // console.log('User ID not found in the page HTML.');
     }
 }
 
@@ -151,31 +151,31 @@ const fetchUserProfileCanonical = async (userId) => {
         const html = await response.text(); // Extract text from the response
 
         if (typeof html !== 'string') {
-            console.error('Expected html to be a string, but got:', typeof html);
+            // console.error('Expected html to be a string, but got:', typeof html);
             return null;
         }
 
         if (response.url !== initialUrl) {
-            console.log(response.url.match(/\/([^/]+)\/?$/)[1]);
+            // console.log(response.url.match(/\/([^/]+)\/?$/)[1]);
             return response.url.match(/\/([^/]+)\/?$/)[1];
         } else {
             const regex = /"userVanity":"([^"]+)"/;
             const userVanity = html.match(regex);
             const canonicalMatch = html.match(/<link rel="canonical" href="https:\/\/www\.facebook\.com\/([^"]+)"\s*\/?>/);
             if (canonicalMatch) {
-                console.log('Canonical URL found:', canonicalMatch[0]);
+                // console.log('Canonical URL found:', canonicalMatch[0]);
                 return canonicalMatch[1];
             } else if (userVanity) {
-                console.log('User Vanity found:', userVanity[0]);
+                // console.log('User Vanity found:', userVanity[0]);
                 return userVanity[1];
             } else {
-                console.log('Canonical URL not found in profile page HTML.');
+                // console.log('Canonical URL not found in profile page HTML.');
                 return null;
             }
         }
 
     } catch (error) {
-        console.error('Error fetching user profile:', error);
+        // console.error('Error fetching user profile:', error);
         return null;
     }
 }
@@ -260,7 +260,7 @@ async function fetchWithRetries(fetchFunction, retries = 10, delay = 1000) {
         try {
             return await fetchFunction();
         } catch (error) {
-            console.error('Error fetching data:', error);
+            // console.error('Error fetching data:', error);
             // Introduce delay only for subsequent retries
             if (attempt < retries - 1) {
                 await new Promise(resolve => setTimeout(resolve, delay));
@@ -283,28 +283,64 @@ async function extractUserIdFromPost(possiblyHeader) {
                     var userId = userIdMatch[1];
                     let userExists = checkUserIdInResponse(userId, data);
                     if (userExists) {
-                        console.log('User ID exists in response:', userExists);
+                        // console.log('User ID exists in response:', userExists);
                         return [userExists];
                     } else {
                         const canonicalId = await fetchUserProfileCanonical(userId);
                         if (canonicalId) {
                             userExists = checkUserIdInResponse(canonicalId, data);
                             if (userExists) {
-                                console.log('Canonical ID exists in response:', userExists);
+                                // console.log('Canonical ID exists in response:', userExists);
                                 return [userExists];
                             }
                         }
                     }
-                    console.log(userId);
+                    // console.log(userId);
                 }
             }
         } catch (error) {
-            console.error('Error extracting user ID:', error);
+            // console.error('Error extracting user ID:', error);
 
         }
 
-    console.log('Failed to extract user ID after multiple attempts.');
+    // console.log('Failed to extract user ID after multiple attempts.');
     return [];
 }
+function createFloatingButton() {
+    const button = document.createElement('button');
+    button.innerText = 'Click Me';
+    button.style.position = 'fixed';
+    button.style.bottom = '20px';
+    button.style.right = '20px';
+    button.style.padding = '10px 20px';
+    button.style.backgroundColor = '#007bff';
+    button.style.color = '#fff';
+    button.style.border = 'none';
+    button.style.borderRadius = '5px';
+    button.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)';
+    button.style.cursor = 'pointer';
+    button.style.zIndex = '1000';
 
+    button.addEventListener('click', async () => {
+        await findPosts();
+    });
+
+    document.body.appendChild(button);
+}
+async function handleNewPosts() {
+    const postHeader = await fetchWithRetries(() => Promise.resolve(extractPosts()));
+
+    for (let i = 0; i < postHeader.length; i++) {
+        try {
+            const user = await extractUserIdFromPost(postHeader[i]);
+            const owner = user[0][0];
+            if (!allPosts.includes(postHeader[i])) {
+                allPosts.push(postHeader[i]);
+                appendDivToPostHead(postHeader[i], owner);
+            }
+        } catch (error) {
+            // console.error('Error after initialization:', error);
+        }
+    }
+}
 
