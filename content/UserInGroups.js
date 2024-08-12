@@ -1,15 +1,8 @@
 
 const url = window.location.href;
 var userId;
+var userExists;
 
-const extractUserId = (url) => {
-    var match;
-     match = url.match(/\/user\/(\d+)\//);
-    if(!match){
-        match = url.match(/\/user\/(\d+)/);
-    }
-    return match ? match[1] : null;
-}
 
 window.addEventListener('load', async () => {
     await fetchUserProfile().then(async () => {
@@ -17,7 +10,7 @@ window.addEventListener('load', async () => {
         userId = extractUserId(url);
         console.log('User ID:', userId);
         if (userId) {
-            let userExists = checkUserIdInResponse(userId, data);
+            userExists = checkUserIdInResponse(userId, data);
             if (userExists) {
                 console.log('User ID exists in response:', userExists);
             } else {
@@ -33,6 +26,8 @@ window.addEventListener('load', async () => {
                     console.log('Canonical ID not found in profile page');
                 }
             }
+            const postHeader = await fetchWithRetries(() => Promise.resolve(extractUserProfile()[0]));
+            appendDivToPostHead(postHeader, userExists[0]);
         } else {
             console.log('User ID not found in URL');
         }

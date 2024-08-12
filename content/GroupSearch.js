@@ -34,7 +34,7 @@ window.addEventListener('load', async () => {
 
 async function findPosts() {
 
-    const postHeader = extractPosts();
+    const postHeader = extractPostSearch();
 
     for (let i = 0; i < postHeader.length; i++) {
         try {

@@ -27,7 +27,7 @@ check.addEventListener("click", async () => {
       popover = null;
     }
     const query = owner.value;
-    let userExists = checkUserIdInResponse(query, data);
+    let userExists = checkServiceProviderIdInResponse(query, data);
       
     if (userExists) {
         console.log('Canonical ID exists in response:', userExists);

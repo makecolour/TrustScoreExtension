@@ -92,6 +92,16 @@
 				"./content/Functions.js",
 				"./content/GroupContent.js"
 			]
+		},
+		{
+			"matches": [
+				"*://www.facebook.com/groups/356018761148436/search/*",
+				"*://www.facebook.com/groups/fuhoalac/search/*"
+			],
+			"js": [
+				"./content/Functions.js",
+				"./content/GroupSearch.js"
+			]
 		}
 	],
 	"icons": {
