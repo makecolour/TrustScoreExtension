@@ -103,13 +103,6 @@ function appendDivToPostHead(postHead, d) {
         // console.log(newDiv);
     }
 
-    if (postHead && postHead.parentNode ) {
-        postHead.parentNode.insertBefore(newDiv, postHead);
-        // console.log("New div added before post head!");
-        // console.log(newDiv);
-    } else {
-        // console.log("postHead or its parent node is not available.");
-    }
 }
 
 const extractUserIdFromProfile = (url) => {
@@ -304,4 +297,65 @@ async function extractUserIdFromPost(possiblyHeader) {
     return [];
 }
 
+async function waitForDynamicContent() {
+    return new Promise((resolve) => {
+        const checkInterval = setInterval(() => {
+            // Add your own condition to determine if the dynamic content is fully loaded
+            const dynamicContentLoaded = extractUserProfile();
+
+            if (dynamicContentLoaded) {
+                clearInterval(checkInterval);
+                resolve();  // Resolve the promise when the condition is met
+            }
+        }, 1000);  // Check every 1 second
+    });
+}
+
+function appendDivToProfile(d) {
+    var newDiv = document.createElement("div");
+    newDiv.classList.add('FUHL-trust-score');
+    newDiv.style.background = "linear-gradient(315deg, rgba(0, 191, 255, 0.8), rgba(255, 127, 63, 0.8))";
+    newDiv.style.padding = "10px";
+    newDiv.style.marginBottom = "10px";
+    newDiv.style.border = "1px solid #F0F0F0";
+    newDiv.style.position = "fixed"; 
+    newDiv.style.top = "60px"; 
+    newDiv.style.left = "10px"; 
+    newDiv.style.color = "#fff";
+    newDiv.style.borderRadius = "5px";
+    newDiv.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.2)";
+    newDiv.style.cursor = "pointer";
+    newDiv.style.zIndex = "10000"; // Ensure it is on top of other elements
+
+    if (d.group == "service_provider") {
+        newDiv.innerHTML = `<strong>Service Provider: ${d.properties.service_type}</strong></br>Name: ${d.owner}</br>Ranking: ${d.order} - ${starCount(d)}`;
+        newDiv.addEventListener('click', () => {
+            window.open(`${chrome.runtime.getManifest().homepage_url}/profile?owner=${d.owner}`, '_blank');
+        });
+    } else {
+        newDiv.innerHTML = `<strong>User: <u>${d.properties.name}</u></strong>`;
+    }
+
+    const hoverDiv = document.createElement('div');
+    hoverDiv.innerHTML = `<strong>Trust Score: <u>${d.first_combine}</u></strong><br><strong>Feedbacks:</strong><br>Good: ${d.total_good}<br>Bad: ${d.total_bad}<br>Ask for service: ${d.total_ask_for_service}<br>Non related: ${d.total_non_related}<br><strong>Total posts: ${d.properties.total_posts}</strong><br><strong>Reactions:</strong><br>Like: ${d.properties.num_likes}<br>Love: ${d.properties.num_loves}<br>Care: ${d.properties.num_cares}<br>Wow: ${d.properties.num_wows}<br>Haha: ${d.properties.num_hahas}<br>Sad: ${d.properties.num_sads}<br>Angry: ${d.properties.num_angries}<br><strong>Comments:</strong><br>Comments received: ${d.properties.comment_receive}<br>Total comments: ${d.properties.total_comments}<br>Self comments: ${d.properties.self_comment}<br>Total reacts received from comments: ${d.properties.total_comment_reacts}`;
+    hoverDiv.style.position = 'absolute';
+    hoverDiv.style.top = '100%';
+    hoverDiv.style.left = '0';
+    hoverDiv.style.padding = '10px';
+    hoverDiv.style.backgroundColor = '#fff';
+    hoverDiv.style.border = '1px solid #ccc';
+    hoverDiv.style.display = 'none';
+    hoverDiv.style.color = 'black';
+    hoverDiv.style.zIndex = '9999';
+
+    newDiv.addEventListener('mouseenter', () => {
+        hoverDiv.style.display = 'block';
+    });
+
+    newDiv.addEventListener('mouseleave', () => {
+        hoverDiv.style.display = 'none';
+    });
+    newDiv.appendChild(hoverDiv);
+    document.body.appendChild(newDiv);
+}
 

@@ -2,19 +2,6 @@ let allPosts = [];
 let allUsers = new Map();
 let currentURL = window.location.href;
 
-async function waitForDynamicContent() {
-    return new Promise((resolve) => {
-        const checkInterval = setInterval(() => {
-            // Add your own condition to determine if the dynamic content is fully loaded
-            const dynamicContentLoaded = extractUserProfile();
-
-            if (dynamicContentLoaded) {
-                clearInterval(checkInterval);
-                resolve();  // Resolve the promise when the condition is met
-            }
-        }, 1000);  // Check every 1 second
-    });
-}
 
 function observeDOMChanges() {
     const observer = new MutationObserver((mutations) => {
@@ -37,10 +24,10 @@ function monitorURLChanges() {
     const observer = new MutationObserver(() => {
         if (currentURL !== window.location.href) {
             currentURL = window.location.href;
+            clearUsersDiv();
             initialize();
             allPosts.length;
-            allUsers.clear();
-            
+            allUsers.clear(); 
         }
     });
 
@@ -52,9 +39,11 @@ function monitorURLChanges() {
     setInterval(() => {
         if (currentURL !== window.location.href) {
             currentURL = window.location.href;
+            clearUsersDiv();
             initialize();
             allPosts.length;
             allUsers.clear();
+            
         }
     }, 5000);
 }
@@ -91,15 +80,11 @@ async function initialize() {
     
     createFloatingButton();
     observeDOMChanges();
-
-    await waitForDynamicContent().then(async () => {
-        if (currentURL.includes('/groups/356018761148436/user') || currentURL.includes('/groups/fuhoalac/user')) {
-            await handleUserInGroups();
-        } else {
-            await handleUserGeneral();
-        }
-    });
-    
+    if (currentURL.includes('/groups/356018761148436/user') || currentURL.includes('/groups/fuhoalac/user')) {
+        await handleUserInGroups();
+    } else {
+        await handleUserGeneral();
+    }
 
     // if(currentURL.includes('/groups/356018761148436') || currentURL.includes('/groups/fuhoalac')) {
         handleNewPosts();
@@ -129,7 +114,7 @@ async function handleUserInGroups() {
             }
         }
         const postHeader = await fetchWithRetries(() => Promise.resolve(extractUserProfile()), 9999, 1000);
-        appendDivToPostHead(postHeader[0], userExists[0]);
+        appendDivToProfile(userExists[0]);
     } else {
         // console.log('User ID not found in URL');
     }
@@ -148,7 +133,7 @@ async function handleUserGeneral() {
             // console.log('User ID exists in response:', userExists);
         }
         const postHeader = await fetchWithRetries(() => Promise.resolve(extractUserProfile()[0]));
-        appendDivToPostHead(postHeader, userExists[0]);
+        appendDivToProfile(userExists[0]);
     } else {
         // console.log('User ID not found in URL');
     }
@@ -217,6 +202,7 @@ function showAllUsersMap() {
         usersDiv.style.maxHeight = '300px';
         usersDiv.style.overflowY = 'auto';
         usersDiv.style.display = 'none';
+        usersDiv.classList.add('FUHL-trust-score"');
         usersDiv.id = 'usersDiv';
 
         document.body.appendChild(usersDiv);
@@ -287,10 +273,17 @@ function showAllUsersMap() {
 
 }
 function clearUsersDiv() {
-    const usersDiv = document.getElementById('usersDiv');
-    if (usersDiv) {
-        usersDiv.innerHTML = ''; 
+    const usersDiv = document.getElementsByClassName('FUHL-trust-score');
+    console.log('Clearing users div:', usersDiv);
+    if (usersDiv.length > 0) {
+        // Convert HTMLCollection to an array
+        const usersDivArray = Array.from(usersDiv);
+        usersDivArray.forEach(div => div.remove());
     }
 }
 
 window.addEventListener('beforeunload', clearUsersDiv);
+window.addEventListener('popstate', clearUsersDiv);
+
+// Optionally, call clearUsersDiv on initial page load
+document.addEventListener('DOMContentLoaded', clearUsersDiv);
