@@ -9,7 +9,7 @@ The Trust Management extension is a part of the [Trust Management project](https
 - [License](#license)
 
 ## Installation
-**Step 1**: Download zip or the [latest release](https://github.com/makecolour/TrustScoreExtension/releases/latest).
+**Step 1**: Download zip or **Source code** in the the [latest release](https://github.com/makecolour/TrustScoreExtension/releases/latest).
 
 **Step 2**: Load the extension in your browser:
 - Open your browser's extension management page (e.g., `chrome://extensions/` for Chrome).
