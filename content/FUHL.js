@@ -38,6 +38,9 @@ function monitorURLChanges() {
         if (currentURL !== window.location.href) {
             currentURL = window.location.href;
             initialize();
+            allPosts.length;
+            allUsers.clear();
+            
         }
     });
 
@@ -50,6 +53,8 @@ function monitorURLChanges() {
         if (currentURL !== window.location.href) {
             currentURL = window.location.href;
             initialize();
+            allPosts.length;
+            allUsers.clear();
         }
     }, 5000);
 }
@@ -83,8 +88,7 @@ async function handleNewPosts() {
 }
 
 async function initialize() {
-    allPosts.length;
-    allUsers.clear();
+    
     createFloatingButton();
     observeDOMChanges();
 
@@ -109,6 +113,7 @@ async function handleUserInGroups() {
     let userExists;
 
     // userId = extractUserId(url);
+    userId = await fetchWithRetries(() => Promise.resolve(extractUserId(url)));
 
     if (userId) {
         userExists = checkUserIdInResponse(userId, data);
