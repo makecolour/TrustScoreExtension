@@ -10,6 +10,7 @@ The Trust Management extension is a part of the [Trust Management project](https
 
 ## Installation
 **Step 1**: Download zip or the [latest release](https://github.com/makecolour/TrustScoreExtension/releases/latest).
+
 **Step 2**: Load the extension in your browser:
 - Open your browser's extension management page (e.g., `chrome://extensions/` for Chrome).
 - Enable **Developer mode**.
@@ -19,7 +20,9 @@ The Trust Management extension is a part of the [Trust Management project](https
 Once the extension is loaded, it will automatically enhance your Facebook experience by providing trust reputation scores for services within the FU-HL group.
 
 ## Features
-The extension will display service providers' details when it detects their posts or profile.
+- The extension will display service providers' details when it detects their posts or profiles.
+- You can search for a particular service provider, update latest data, etc on popup.
+> You can find detected posts by hovering over the button in the lower left corner of the screen.
 
 ## Contributing
 Contributions are welcome! Please follow these steps:
