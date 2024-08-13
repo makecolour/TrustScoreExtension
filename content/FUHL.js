@@ -23,6 +23,8 @@ function monitorURLChanges() {
     const observer = new MutationObserver(() => {
         if (currentURL !== window.location.href) {
             currentURL = window.location.href;
+            allPosts.length;
+            allUsers.clear();
             initialize();
         }
     });
@@ -35,6 +37,8 @@ function monitorURLChanges() {
     setInterval(() => {
         if (currentURL !== window.location.href) {
             currentURL = window.location.href;
+            allPosts.length;
+            allUsers.clear();
             initialize();
         }
     }, 5000);
@@ -69,7 +73,6 @@ async function handleNewPosts() {
 }
 
 async function initialize() {
-    await fetchWithRetries(fetchUserProfile);
     createFloatingButton();
     observeDOMChanges();
 
@@ -136,8 +139,8 @@ async function handleUserGeneral() {
 }
 
 
-
 window.addEventListener('load', async () => {
+    await fetchWithRetries(fetchUserProfile);
     await initialize();
 });
 
@@ -164,27 +167,79 @@ function createFloatingButton() {
         showAllUsersMap();
     });
 
+    button.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
     document.body.appendChild(button);
 }
 
 // Function to display the allUsers map
 function showAllUsersMap() {
-    const usersDiv = document.createElement('div');
-    usersDiv.style.position = 'fixed';
-    usersDiv.style.bottom = '60px'; // Adjusted to be closer to the button
-    usersDiv.style.left = '20px';
-    usersDiv.style.padding = '10px';
-    usersDiv.style.backgroundColor = '#fff';
-    usersDiv.style.border = '1px solid #ccc';
-    usersDiv.style.borderRadius = '5px';
-    usersDiv.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)';
-    usersDiv.style.zIndex = '1000';
-    usersDiv.style.maxHeight = '300px';
-    usersDiv.style.overflowY = 'auto';
-    usersDiv.style.display = 'none'; // Initially hidden
+    if(allUsers.size === 0||allPosts.length === 0) {
+        return;
+    }
+    else if(document.getElementById('usersDiv')) {
+        const usersDiv = document.getElementById('usersDiv');
+        usersDiv.style.display = 'block';
+        usersDiv.innerHTML = ''; // Clear all content
 
-    // Populate the div with the allUsers map content
+    }
+    else{
+        const usersDiv = document.createElement('div');
+        usersDiv.style.position = 'fixed';
+        usersDiv.style.bottom = '60px'; 
+        usersDiv.style.left = '20px';
+        usersDiv.style.padding = '10px';
+        usersDiv.style.backgroundColor = '#fff';
+        usersDiv.style.border = '1px solid #ccc';
+        usersDiv.style.borderRadius = '5px';
+        usersDiv.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)';
+        usersDiv.style.zIndex = '1000';
+        usersDiv.style.maxHeight = '300px';
+        usersDiv.style.overflowY = 'auto';
+        usersDiv.style.display = 'none';
+        usersDiv.id = 'usersDiv';
+
+        document.body.appendChild(usersDiv);
+        document.querySelector('button').addEventListener('mouseover', () => {
+            usersDiv.style.display = 'block';
+        });
+        
+        document.querySelector('button').addEventListener('mouseout', () => {
+            setTimeout(() => {
+                if (!usersDiv.matches(':hover') && !document.querySelector('button').matches(':hover')) {
+                    usersDiv.style.display = 'none';
+                }
+            }, 200); // Adjust the delay as needed
+        });
+        
+        usersDiv.addEventListener('mouseover', () => {
+            usersDiv.style.display = 'block';
+        });
+        
+        usersDiv.addEventListener('mouseout', () => {
+            setTimeout(() => {
+                if (!usersDiv.matches(':hover') && !document.querySelector('button').matches(':hover')) {
+                    usersDiv.style.display = 'none';
+                }
+            }, 200); // Adjust the delay as needed
+        });
+    }
+
     allUsers.forEach((posts, user) => {
+        if (!user) {
+            console.error(`User at key ${key} is undefined or null`);
+            return;
+        }
+
+        if (!user.id) {
+            console.error(`User at key ${key} does not have an id`);
+            return;
+        }
         const userDiv = document.createElement('div');
         userDiv.style.marginBottom = '10px';
 
@@ -215,31 +270,13 @@ function showAllUsersMap() {
         usersDiv.appendChild(userDiv);
     });
 
-    document.body.appendChild(usersDiv);
-
-    // Show the usersDiv when the button is hovered
-    document.querySelector('button').addEventListener('mouseover', () => {
-        usersDiv.style.display = 'block';
-    });
-    
-    // Hide the usersDiv with a delay when the mouse leaves the button or usersDiv
-    document.querySelector('button').addEventListener('mouseout', () => {
-        setTimeout(() => {
-            if (!usersDiv.matches(':hover') && !document.querySelector('button').matches(':hover')) {
-                usersDiv.style.display = 'none';
-            }
-        }, 200); // Adjust the delay as needed
-    });
-    
-    usersDiv.addEventListener('mouseover', () => {
-        usersDiv.style.display = 'block';
-    });
-    
-    usersDiv.addEventListener('mouseout', () => {
-        setTimeout(() => {
-            if (!usersDiv.matches(':hover') && !document.querySelector('button').matches(':hover')) {
-                usersDiv.style.display = 'none';
-            }
-        }, 200); // Adjust the delay as needed
-    });
 }
+function clearUsersDiv() {
+    const usersDiv = document.getElementById('usersDiv');
+    if (usersDiv) {
+        usersDiv.innerHTML = ''; // Clear all content
+    }
+}
+
+// Attach the clearUsersDiv function to the beforeunload event
+window.addEventListener('beforeunload', clearUsersDiv);
