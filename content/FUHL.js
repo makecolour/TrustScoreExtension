@@ -113,7 +113,6 @@ async function handleUserInGroups() {
                 console.log('Canonical ID not found in profile page');
             }
         }
-        const postHeader = await fetchWithRetries(() => Promise.resolve(extractUserProfile()), 9999, 1000);
         appendDivToProfile(userExists[0]);
     } else {
         // console.log('User ID not found in URL');
@@ -132,7 +131,6 @@ async function handleUserGeneral() {
         if (userExists) {
             // console.log('User ID exists in response:', userExists);
         }
-        const postHeader = await fetchWithRetries(() => Promise.resolve(extractUserProfile()[0]));
         appendDivToProfile(userExists[0]);
     } else {
         // console.log('User ID not found in URL');
