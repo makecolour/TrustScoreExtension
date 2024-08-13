@@ -2,6 +2,20 @@ let allPosts = [];
 let allUsers = new Map();
 let currentURL = window.location.href;
 
+async function waitForDynamicContent() {
+    return new Promise((resolve) => {
+        const checkInterval = setInterval(() => {
+            // Add your own condition to determine if the dynamic content is fully loaded
+            const dynamicContentLoaded = extractUserProfile();
+
+            if (dynamicContentLoaded) {
+                clearInterval(checkInterval);
+                resolve();  // Resolve the promise when the condition is met
+            }
+        }, 1000);  // Check every 1 second
+    });
+}
+
 function observeDOMChanges() {
     const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
@@ -23,8 +37,6 @@ function monitorURLChanges() {
     const observer = new MutationObserver(() => {
         if (currentURL !== window.location.href) {
             currentURL = window.location.href;
-            allPosts.length;
-            allUsers.clear();
             initialize();
         }
     });
@@ -37,8 +49,6 @@ function monitorURLChanges() {
     setInterval(() => {
         if (currentURL !== window.location.href) {
             currentURL = window.location.href;
-            allPosts.length;
-            allUsers.clear();
             initialize();
         }
     }, 5000);
@@ -73,14 +83,19 @@ async function handleNewPosts() {
 }
 
 async function initialize() {
+    allPosts.length;
+    allUsers.clear();
     createFloatingButton();
     observeDOMChanges();
 
-    if (currentURL.includes('/groups/356018761148436/user') || currentURL.includes('/groups/fuhoalac/user')) {
-        await handleUserInGroups();
-    } else {
-        await handleUserGeneral();
-    }
+    await waitForDynamicContent().then(async () => {
+        if (currentURL.includes('/groups/356018761148436/user') || currentURL.includes('/groups/fuhoalac/user')) {
+            await handleUserInGroups();
+        } else {
+            await handleUserGeneral();
+        }
+    });
+    
 
     // if(currentURL.includes('/groups/356018761148436') || currentURL.includes('/groups/fuhoalac')) {
         handleNewPosts();
@@ -93,26 +108,22 @@ async function handleUserInGroups() {
     let userId;
     let userExists;
 
-    userId = extractUserId(url);
-    console.log('User ID:', userId);
+    // userId = extractUserId(url);
+
     if (userId) {
         userExists = checkUserIdInResponse(userId, data);
         if (userExists) {
-            console.log('User ID exists in response:', userExists);
+            console.log('User ID exists in profile:', userExists[0]);
         } else {
             const canonicalId = await fetchUserProfileCanonical(userId);
             if (canonicalId) {
                 userExists = checkUserIdInResponse(canonicalId, data);
-                // if (userExists) {
-                //     console.log('Canonical ID exists in response:', userExists);
-                // } else {
-                //     console.log('Canonical ID not found in response');
-                // }
+
             } else {
                 console.log('Canonical ID not found in profile page');
             }
         }
-        const postHeader = await fetchWithRetries(() => Promise.resolve(extractUserProfile()));
+        const postHeader = await fetchWithRetries(() => Promise.resolve(extractUserProfile()), 9999, 1000);
         appendDivToPostHead(postHeader[0], userExists[0]);
     } else {
         // console.log('User ID not found in URL');
@@ -148,7 +159,7 @@ monitorURLChanges();
 
 function createFloatingButton() {
     const button = document.createElement('button');
-    button.innerHTML = '&#x2191;'; // Up arrow
+    button.innerHTML = '&#x2191;'; 
     button.style.position = 'fixed';
     button.style.bottom = '20px';
     button.style.left = '20px';
@@ -162,7 +173,6 @@ function createFloatingButton() {
     button.style.zIndex = '1000';
     button.style.transition = 'bottom 0.3s';
 
-    // Event listener for hover
     button.addEventListener('mouseover', () => {
         showAllUsersMap();
     });
@@ -177,7 +187,7 @@ function createFloatingButton() {
     document.body.appendChild(button);
 }
 
-// Function to display the allUsers map
+
 function showAllUsersMap() {
     if(allUsers.size === 0||allPosts.length === 0) {
         return;
@@ -185,7 +195,7 @@ function showAllUsersMap() {
     else if(document.getElementById('usersDiv')) {
         const usersDiv = document.getElementById('usersDiv');
         usersDiv.style.display = 'block';
-        usersDiv.innerHTML = ''; // Clear all content
+        usersDiv.innerHTML = ''; 
 
     }
     else{
@@ -214,7 +224,7 @@ function showAllUsersMap() {
                 if (!usersDiv.matches(':hover') && !document.querySelector('button').matches(':hover')) {
                     usersDiv.style.display = 'none';
                 }
-            }, 200); // Adjust the delay as needed
+            }, 200); 
         });
         
         usersDiv.addEventListener('mouseover', () => {
@@ -226,7 +236,7 @@ function showAllUsersMap() {
                 if (!usersDiv.matches(':hover') && !document.querySelector('button').matches(':hover')) {
                     usersDiv.style.display = 'none';
                 }
-            }, 200); // Adjust the delay as needed
+            }, 200); 
         });
     }
 
@@ -255,7 +265,7 @@ function showAllUsersMap() {
             postLink.innerText = `Post: ${allPosts.indexOf(post) + 1}`;
             
             postLink.addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent the default anchor behavior
+                event.preventDefault();
                 const targetElement = document.getElementById(post.id);
                 if (targetElement) {
                     targetElement.scrollIntoView({ behavior: 'smooth' });
@@ -274,9 +284,8 @@ function showAllUsersMap() {
 function clearUsersDiv() {
     const usersDiv = document.getElementById('usersDiv');
     if (usersDiv) {
-        usersDiv.innerHTML = ''; // Clear all content
+        usersDiv.innerHTML = ''; 
     }
 }
 
-// Attach the clearUsersDiv function to the beforeunload event
 window.addEventListener('beforeunload', clearUsersDiv);

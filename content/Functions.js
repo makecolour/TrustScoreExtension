@@ -295,32 +295,13 @@ async function extractUserIdFromPost(possiblyHeader) {
                             }
                         }
                     }
-                    // console.log(userId);
                 }
             }
         } catch (error) {
-            // console.error('Error extracting user ID:', error);
 
         }
 
-    // console.log('Failed to extract user ID after multiple attempts.');
     return [];
 }
 
-// async function handleNewPosts() {
-//     const postHeader = await fetchWithRetries(() => Promise.resolve(extractPosts()));
-
-//     for (let i = 0; i < postHeader.length; i++) {
-//         try {
-//             const user = await extractUserIdFromPost(postHeader[i]);
-//             const owner = user[0][0];
-//             if (!allPosts.includes(postHeader[i])) {
-//                 allPosts.push(postHeader[i]);
-//                 appendDivToPostHead(postHeader[i], owner);
-//             }
-//         } catch (error) {
-//             // console.error('Error after initialization:', error);
-//         }
-//     }
-// }
 
