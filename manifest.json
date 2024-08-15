@@ -54,5 +54,6 @@
 		"32": "./assets/favicon.png",
 		"48": "./assets/favicon.png",
 		"128": "./assets/favicon.png"
-	}
+	},
+	"github": "https://github.com/makecolour/TrustScoreExtension"
 }
