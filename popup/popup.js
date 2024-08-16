@@ -48,18 +48,19 @@ check.addEventListener("click", async () => {
 
 function generateAccordionHTML(objects) {
   let accordionHTML = '<div class="accordion" id="accordionExample">';
-  objects.forEach((obj, index) => {
+  objects.forEach((d, index) => {
     accordionHTML += `
       <div class="accordion-item">
         <h2 class="accordion-header" id="heading${index}">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="false" aria-controls="collapse${index}">
-            ${obj.owner}
+            ${d.owner}
           </button>
         </h2>
         <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            <p>${JSON.stringify(obj, null, 2)}</p>
-            <a href="${chrome.runtime.getManifest().homepage_url}/profile?owner=${obj.owner}" target="_blank">View Profile</a>
+            <strong>Service Provider: ${d.properties.service_type}</strong></br>Name: ${d.owner}</br>Ranking: ${d.order} - ${starCount(d)}
+            <a href="${chrome.runtime.getManifest().homepage_url}/profile?owner=${d.owner}" target="_blank">View Profile</a>
+            <strong>Trust Score: <u>${d.first_combine}</u></strong><br><strong>Feedbacks:</strong><br>Good: ${d.total_good}<br>Bad: ${d.total_bad}<br>Ask for service: ${d.total_ask_for_service}<br>Non related: ${d.total_non_related}<br><strong>Total posts: ${d.properties.total_posts}</strong><br><strong>Reactions:</strong><br>Like: ${d.properties.num_likes}<br>Love: ${d.properties.num_loves}<br>Care: ${d.properties.num_cares}<br>Wow: ${d.properties.num_wows}<br>Haha: ${d.properties.num_hahas}<br>Sad: ${d.properties.num_sads}<br>Angry: ${d.properties.num_angries}<br><strong>Comments:</strong><br>Comments received: ${d.properties.comment_receive}<br>Total comments: ${d.properties.total_comments}<br>Self comments: ${d.properties.self_comment}<br>Total reacts received from comments: ${d.properties.total_comment_reacts}
           </div>
         </div>
       </div>

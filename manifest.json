@@ -1,8 +1,8 @@
 {
 	"manifest_version": 3,
 	"name": "Trust Management",
-	"author": "Chillin Studio",
-	"version": "1.0",
+	"author": "Trust Management team",
+	"version": "1.1",
 	"description": "The Trust Management extension is a part of Trust Management project offers trust reputation scores for services provided within the FU-HL group, a large and active community on Facebook associated with FPT University Hanoi.",
 	"action": {
 		"default_popup": "./popup/popup.html"
@@ -10,7 +10,7 @@
 	"default_locale": "vi",
 	"options_page": "./popup/popup.html",
 	"homepage_url": "https://app-1fd3ee37-b34c-482a-ba11-dbb1f80e9497.cleverapps.io",
-	"author": "quyennthe180534@fpt.edu.vn",
+	"author": "harryworkhard2412@gmail.com",
 	"permissions": [
 		"storage",
 		"background"
@@ -36,7 +36,6 @@
 	],
 	"background": {
 			"service_worker": "./service/service_worker.js"
-
 		},
 	"content_scripts": [
 		{
